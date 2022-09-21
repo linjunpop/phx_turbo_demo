@@ -17,6 +17,8 @@ defmodule TurboDemoWeb.Router do
   scope "/", TurboDemoWeb do
     pipe_through :browser
 
+    resources "/todos", TodoController
+
     get "/", PageController, :index
   end
 
