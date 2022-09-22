@@ -1,26 +1,13 @@
-<h1>Listing Todos</h1>
+<turbo-frame id="todos">
+  <h1>Listing Todos</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
+  <turbo-frame id="todo_list">
+    <%= for todo <- @todos do %>
+      <%= render "_todo.html", conn: @conn, todo: todo %>
+    <% end %>
+  </turbo-frame>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for todo <- @todos do %>
-    <tr>
-      <td><%= todo.title %></td>
-
-      <td>
-        <span><%= link "Show", to: Routes.todo_path(@conn, :show, todo) %></span>
-        <span><%= link "Edit", to: Routes.todo_path(@conn, :edit, todo) %></span>
-        <span><%= link "Delete", to: Routes.todo_path(@conn, :delete, todo), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
-<span><%= link "New Todo", to: Routes.todo_path(@conn, :new) %></span>
+  <turbo-frame id={dom_id(["new", "todo"])}>
+    <span><%= link "New Todo", to: Routes.todo_path(@conn, :new) %></span>
+  </turbo-frame>
+</turbo-frame>

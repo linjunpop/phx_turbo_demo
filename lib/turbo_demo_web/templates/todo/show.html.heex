@@ -1,13 +1,15 @@
 <h1>Show Todo</h1>
 
-<ul>
+<turbo-frame id={@todo.id}>
+  <ul>
+    <li>
+      <strong>Title:</strong>
+      <%= @todo.title %>
+    </li>
 
-  <li>
-    <strong>Title:</strong>
-    <%= @todo.title %>
-  </li>
+  </ul>
 
-</ul>
+  <span><%= link "Edit", to: Routes.todo_path(@conn, :edit, @todo) %></span> |
+</turbo-frame>
 
-<span><%= link "Edit", to: Routes.todo_path(@conn, :edit, @todo) %></span> |
-<span><%= link "Back", to: Routes.todo_path(@conn, :index) %></span>
+  <span><%= link "Back", to: Routes.todo_path(@conn, :index) %></span>
