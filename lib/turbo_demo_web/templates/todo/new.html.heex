@@ -1,5 +1,7 @@
 <h1>New Todo</h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.todo_path(@conn, :create)) %>
+<turbo-frame id="new_todo">
+	<%= render "form.html", Map.put(assigns, :action, Routes.todo_path(@conn, :create)) %>
+</turbo-frame>
 
 <span><%= link "Back", to: Routes.todo_path(@conn, :index) %></span>

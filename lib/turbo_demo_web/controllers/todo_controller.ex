@@ -17,9 +17,16 @@ defmodule TurboDemoWeb.TodoController do
   def create(conn, %{"todo" => todo_params}) do
     case Thing.create_todo(todo_params) do
       {:ok, todo} ->
-        conn
-        |> put_flash(:info, "Todo created successfully.")
-        |> redirect(to: Routes.todo_path(conn, :show, todo))
+        if turbo_stream?(conn) do
+          conn
+          |> put_resp_content_type("text/vnd.turbo-stream.html")
+          |> put_layout(false)
+          |> render("todo.stream.html", todo: todo)
+        else
+          conn
+          |> put_flash(:info, "Todo created successfully.")
+          |> redirect(to: Routes.todo_path(conn, :show, todo))
+        end
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -58,5 +65,15 @@ defmodule TurboDemoWeb.TodoController do
     conn
     |> put_flash(:info, "Todo deleted successfully.")
     |> redirect(to: Routes.todo_path(conn, :index))
+  end
+
+  defp turbo_stream?(conn) do
+    case conn |> get_req_header("accept") do
+      [accept] ->
+        String.contains?(accept, "text/vnd.turbo-stream.html")
+
+      [] ->
+        false
+    end
   end
 end

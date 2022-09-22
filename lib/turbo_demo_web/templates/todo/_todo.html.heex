@@ -1,0 +1,11 @@
+<turbo-frame id={dom_id(@todo.id)}>
+	<div>
+		<td><%= @todo.title %></td>
+
+		<p>
+			<span><%= link "Show", to: Routes.todo_path(@conn, :show, @todo) %></span>
+			<span><%= link "Edit", to: Routes.todo_path(@conn, :edit, @todo), data: [turbo_action: :replace] %></span>
+			<span><%= link "Delete", to: Routes.todo_path(@conn, :delete, @todo), data: [turbo_method: :delete] %></span>
+		</p>
+	</div>
+</turbo-frame>

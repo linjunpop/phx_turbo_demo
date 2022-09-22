@@ -23,6 +23,7 @@
         <a href="https://phoenixframework.org/" class="phx-logo">
           <img src={Routes.static_path(@conn, "/images/phoenix.png")} alt="Phoenix Framework Logo"/>
         </a>
+        <%= link "Todos", to: Routes.todo_path(@conn, :index) %>
       </section>
     </header>
     <%= @inner_content %>
